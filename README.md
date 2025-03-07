@@ -8,7 +8,7 @@ Este documento explica el flujo de trabajo que se debe seguir para subir cambios
 ### 1. Clona el Repositorio
 Si aún no has clonado el repositorio, usa el siguiente comando:
 
-```bash git clone https://github.com/TrueSolutions-Dev/sgd-frontend.git ```
+```git clone https://github.com/TrueSolutions-Dev/sgd-frontend.git ```
 
 Siempre que vayas a trabajar en una nueva característica o corregir un error, crea una rama nueva basada en la rama develop:
 
