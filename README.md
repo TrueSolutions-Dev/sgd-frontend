@@ -4,7 +4,7 @@ Este documento explica el flujo de trabajo que se debe seguir para subir cambios
 **No hay protección de la rama `main`**, pero **todas las nuevas funcionalidades y correcciones deben ser subidas a `develop` primero** para tener un respaldo.
 
 ## Flujo de Trabajo
-
+```bash
 ### 1. Clona el Repositorio
 Si aún no has clonado el repositorio, usa el siguiente comando:
 
@@ -36,7 +36,7 @@ git push origin feature/DASH1-Login-changes
 
 ### 7. Crear Pull Request
 Una vez que hayas subido tus cambios, crear un Pull Request desde la rama hacia develop.
-
+````
 
 
 
