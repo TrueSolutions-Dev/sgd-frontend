@@ -1,6 +1,6 @@
-# Instrucciones para Subir Cambios a la Rama `develop`
+# Instrucciones para subir cambios a la branch `develop`
 
-Este documento explica el flujo de trabajo que se debe seguir para subir cambios al repositorio en la rama `develop`. 
+Este documento explica el flujo de trabajo que se debe seguir para subir cambios al repositorio en la branch `develop`. 
 **No hay protección de la rama `main`**, pero **todas las nuevas funcionalidades y correcciones deben ser subidas a `develop` primero** para tener un respaldo.
 
 ## Flujo de Trabajo
@@ -38,5 +38,14 @@ git push origin feature/DASH1-Login-changes
 Una vez que hayas subido tus cambios, crear un Pull Request desde la rama hacia develop.
 ````
 
+# Instrucciones para instalar las dependencias e iniciar el servidor de vite.js
+```bash
+### 1. Instalar las dependencias una vez clonado el repositorio
+npm install
+
+### 2. Crear el archivo .env en la raíz del proyecto (variables proporcionadas por mensaje)
+
+### 3. Iniciar el servidor de desarrollo de Vite
+npm run dev
 
 
