@@ -23,8 +23,8 @@ El nombre de tu rama debe ser descriptivo, es decir si estas trabajando con un c
 ```git checkout -b feature/DASH1-Login-changes ```
 
 ### También, revisar la última rama para llevar un número consecutivo, por ejemplo:
-Si la última rama fue feature/DASH1-Login-changes,
-hacer la siguiente con feature/DASH2-Login-styles.
+Si la última rama fue ```feature/DASH1-Login-changes```,
+hacer la siguiente con ```feature/DASH2-Login-styles```.
 
 ### 5. Hacer los cambios necesarios en tu rama. 
 Después de hacer los cambios, agrega los archivos modificados al área de preparación y haz un commit con un mensaje.
