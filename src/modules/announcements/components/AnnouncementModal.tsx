@@ -1,6 +1,5 @@
-import { getDecodedToken } from "@/utils/auth";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
-import React, { useMemo } from "react";
+import React from "react";
 
 interface AnnouncementModalProps {
   open: boolean;
@@ -19,8 +18,6 @@ const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
   handleSaveAnnouncement,
   handleImageChange
 }) => {
-
-  const user = useMemo(() => getDecodedToken(), []);
 
   const handleSave = () => {
     handleSaveAnnouncement();

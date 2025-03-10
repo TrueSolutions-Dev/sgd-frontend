@@ -1,11 +1,16 @@
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import { useSiteSettings } from '../settings/components/SiteSettingsProvider';
+
 
 const NotFound = () => {
+
+  const { siteName } = useSiteSettings();
+
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <Helmet>
-        <title>La Liga Ixtlahuaca - Página No Encontrada</title>
+        <title>{siteName} - Página No Encontrada</title>
       </Helmet>
 
       <h1>404 - Página No Encontrada</h1>
