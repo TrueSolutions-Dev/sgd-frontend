@@ -22,6 +22,7 @@ import bgImage from '../../../assets/img/bg.jpeg';
 import logoImage from '../../../assets/img/logo.png';
 import lottieAnim from '../../../assets/lotties/ball-animation.json';
 import { loginUser } from '../service/auth.service';
+import "./styleLogin.css"
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -138,7 +139,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <section className='main-container'>
       <Helmet>
         <title>{siteName} - Iniciar sesión</title>
       </Helmet>
@@ -170,6 +171,7 @@ const Login = () => {
           zIndex: 1,
           p: isMobile ? 2 : 0,
         }}
+        className="animation"
       >
         <Container
           maxWidth="xs"
@@ -251,6 +253,7 @@ const Login = () => {
                 variant="contained"
                 sx={{
                   backgroundColor: '#667652',
+                  transition: 'background-color 0.4s ease',
                   '&:hover': {
                     backgroundColor: '#5d6b4b',
                   },
@@ -262,7 +265,7 @@ const Login = () => {
           </form>
         </Container>
       </Grid2>
-    </>
+    </section>
   );
 };
 

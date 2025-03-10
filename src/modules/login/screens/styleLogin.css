@@ -1,0 +1,17 @@
+.animation{
+    animation: fadeIn 0.7s;
+}
+
+.main-container{
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+    }
+}
