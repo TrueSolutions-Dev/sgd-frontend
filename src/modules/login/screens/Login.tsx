@@ -163,21 +163,23 @@ const Login = () => {
       </Grid2>
 
       <Grid2
-        alignItems="center"
-        justifyContent="center"
+        display={'flex'}
+        justifyContent={'center'}
+        alignItems={'center'}
         sx={{
-          height: '100%',
           position: 'relative',
           zIndex: 1,
           p: isMobile ? 2 : 0,
+          width: '100%',
+          height: '100%',
         }}
         className="animation"
       >
         <Container
           maxWidth="xs"
           sx={{
-            padding: isMobile ? '10px' : '20px',
-            marginTop: '90px',
+            py: '40px',
+            px: '30px',
             backgroundColor: 'rgba(255, 255, 255, 0.9)',
             borderRadius: '8px',
             boxShadow: '0 4px 15px rgba(0, 0, 0, 0.8)',
@@ -193,15 +195,31 @@ const Login = () => {
             <Typography
               variant={isMobile ? 'body2' : 'subtitle1'}
               align="center"
+              sx={{
+                letterSpacing: "1.5px",
+                mt: 2,
+                fontWeight: "bold",
+              }}
             >
               {siteName}
             </Typography>
           </Box>
           <br />
-          <Typography variant={isMobile ? 'body1' : 'h6'} align="left">
+          <Typography variant={isMobile ? 'body1' : 'h6'} align="left" 
+          sx={{
+            letterSpacing: "2px",
+            fontWeight: "bold",
+          }}
+          >
             Iniciar sesión
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2" gutterBottom
+          sx={{
+            letterSpacing: "1px",
+            mt: 2,
+            fontSize: '1rem',
+          }}
+          >
             Ingresa un usuario y contraseña para continuar
           </Typography>
           <br />
@@ -226,6 +244,9 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
+                  sx={{
+                    mb: 2,
+                  }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -241,7 +262,7 @@ const Login = () => {
                   }}
                 />
                 <Chip
-                  sx={{marginTop: '10px', color: 'gray'}}
+                  sx={{marginTop: '10px', color: 'gray', letterSpacing: '1px', mb: 2}}
                   label="Olvidaste tu contraseña?"
                   variant='filled'
                   onClick={handleForgotPassword} />
@@ -254,6 +275,8 @@ const Login = () => {
                 sx={{
                   backgroundColor: '#667652',
                   transition: 'background-color 0.4s ease',
+                  letterSpacing: "2px",
+                  fontWeight: "600",
                   '&:hover': {
                     backgroundColor: '#5d6b4b',
                   },
