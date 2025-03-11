@@ -4,7 +4,10 @@
 
 .main-container{
     overflow: hidden;
+    height: 100dvh;
+    width: 100dvw;
 }
+
 
 @keyframes fadeIn {
     from {
