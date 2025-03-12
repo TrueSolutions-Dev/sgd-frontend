@@ -162,9 +162,9 @@ const Announcements = () => {
       <Helmet>
         <title>{siteName} - Anuncios</title>
       </Helmet>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Sidebar role="admin" />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 3 }}>
           <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
             Anuncios
           </Typography>

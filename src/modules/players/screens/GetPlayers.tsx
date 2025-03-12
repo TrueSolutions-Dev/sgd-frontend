@@ -319,7 +319,7 @@ const GetPlayers = () => {
   const seoDescription = "Lista completa de jugadores de La Liga Ixtlahuaca, con detalles del equipo y fuerza. Accede a la información completa y mantente al tanto del rendimiento de los jugadores.";
 
   return (
-    <div>
+    <div style={{height: "100dvh", overflowY: "hidden"}}>
       <Helmet>
         <title>{siteName} - Ver jugadores</title>
         <meta name="description" content={seoDescription} />
@@ -327,11 +327,11 @@ const GetPlayers = () => {
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="website" />
       </Helmet>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
+        <Box sx={{ display: 'flex', flexDirection: "column", height: "100%" }}>
         <Suspense fallback={<div>Cargando Sidebar...</div>}>
           <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
         </Suspense>
-        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 3, overflowY: "auto"}}>
           <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
             Lista de jugadores
           </Typography>

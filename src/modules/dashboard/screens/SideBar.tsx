@@ -20,10 +20,13 @@ import {
   MenuItem,
   Toolbar,
   Typography,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../login/service/auth.service';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const drawerWidth = 240;
 
@@ -45,6 +48,13 @@ export default function MiniDrawer({ role }: MiniDrawerProps) {
   const navigate = useNavigate();
   const { siteName } = useSiteSettings();
   const user = useMemo(() => getDecodedToken(), []);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const themeFont = createTheme({
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+    },
+  });
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
@@ -94,203 +104,254 @@ export default function MiniDrawer({ role }: MiniDrawerProps) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ backgroundColor: '#667652' }}>
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {siteName}
-          </Typography>
-          <Typography variant='subtitle2'>
-            {user.username}
-          </Typography>
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="account"
-            onClick={handleMenuOpen}
-          >
-            <AccountCircle />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
-            {role == roles.admin && (
-                <MenuItem onClick={() => { handleMenuClose(); handleSettings(); }}>
-                  Configuración
-                </MenuItem>
-            )}
-            <MenuItem onClick={() => { handleMenuClose(); logout(); }}>
-              Cerrar sesión
-            </MenuItem>
-          </Menu>
-        </Toolbar>
-      </AppBar>
-
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            width: drawerWidth,
-            boxShadow: 3,
-            borderRight: `1px solid #ccc`,
-          },
+    <ThemeProvider theme={themeFont}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar 
+        sx={{ 
+          backgroundColor: '#667652', 
+          py: 2,
+          position: "relative"
         }}
-      >
-        <Box sx={{ width: drawerWidth, padding: 2 }}>
-          <IconButton
-            color="inherit"
-            aria-label="dashboard"
-            onClick={handleDashboard}
+        >
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, letterSpacing: "2px", }}>
+              {siteName}
+            </Typography>
+
+            {!isMobile && (
+              <Typography 
+              variant='subtitle2'
+              sx={{
+                letterSpacing: "2px",
+              }}
+              >
+              {user.username}
+              </Typography>
+            )}
+            
+            <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="account"
+              onClick={handleMenuOpen}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              {role == roles.admin && (
+                  <MenuItem onClick={() => { handleMenuClose(); handleSettings(); }}>
+                    Configuración
+                  </MenuItem>
+              )}
+              <MenuItem onClick={() => { handleMenuClose(); logout(); }}>
+                Cerrar sesión
+              </MenuItem>
+            </Menu>
+          </Toolbar>
+        </AppBar>
+
+        <Drawer
+          anchor="left"
+          open={drawerOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{ keepMounted: true }}
+          PaperProps={{
+            sx: {
+              width: drawerWidth,
+              boxShadow: 3,
+              borderRight: `1px solid #ccc`,
+            },
+          }}
+        >
+          {isMobile && (
+            <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              mb: 1,
+              width: "100%",
+              height: "10%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderBottom: `1px solid #ccc`,
             }}
-          >
-            <HomeIcon sx={{ mr: 1 }} />
-            <Typography variant="body1">Inicio</Typography>
-          </IconButton>
-
-          <IconButton
-            color="inherit"
-            aria-label="add player"
-            onClick={handleAddPlayer}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              mb: 1,
-            }}
-          >
-            <PersonAddAlt1RoundedIcon sx={{ mr: 1 }} />
-            <Typography variant="body1">Agregar Jugadores</Typography>
-          </IconButton>
-
-          <IconButton
-            color="inherit"
-            aria-label="players"
-            onClick={handleGetPlayers}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              mb: 1,
-            }}
-          >
-            <Person2RoundedIcon sx={{ mr: 1 }} />
-            <Typography variant="body1">Lista de Jugadores</Typography>
-          </IconButton>
-          {role === roles.admin && (
-            <>
-
-              <IconButton
-                color="inherit"
-                aria-label="add team"
-                onClick={handleAddTeam}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  mb: 1,
-                }}
+            >
+              <Typography 
+              variant='subtitle2'
+              sx={{
+                letterSpacing: "2px",
+                fontFamily: "Inter",
+                fontWeight: "600",
+              }}
               >
-                <GroupAddIcon sx={{ mr: 1 }} />
-                <Typography variant="body1">Agregar Equipos</Typography>
-              </IconButton>
-
-              <IconButton
-                color="inherit"
-                aria-label="teams"
-                onClick={handleGetTeam}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  mb: 1,
-                }}
-              >
-                <GroupsIcon sx={{ mr: 1 }} />
-                <Typography variant="body1">Lista de Equipos</Typography>
-              </IconButton>
-              <IconButton
-                color="inherit"
-                aria-label="teams"
-                onClick={handleAnnouncements}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  mb: 1,
-                }}
-              >
-                <Announcement sx={{ mr: 1 }} />
-                <Typography variant="body1">Anuncios</Typography>
-              </IconButton>
-              <IconButton
-                color="inherit"
-                aria-label="teams"
-                onClick={handleMatches}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  mb: 1,
-                }}
-              >
-                <ScoreboardIcon sx={{ mr: 1 }} />
-                <Typography variant="body1">Partidos</Typography>
-              </IconButton>
-              <IconButton
-                color="inherit"
-                aria-label="teams"
-                onClick={handleGetTeam}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  mb: 1,
-                }}
-              >
-                <EmojiEventsIcon sx={{ mr: 1 }} />
-                <Typography variant="body1">Tabla de posiciones</Typography>
-              </IconButton>
-              <IconButton
-                color="inherit"
-                aria-label="teams"
-                onClick={handleCredentials}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  mb: 1,
-                }}
-              >
-                <ContactEmergencyIcon sx={{ mr: 1 }} />
-                <Typography variant="body1">Credenciales</Typography>
-              </IconButton>
-            </>
+                  {user.username}
+              </Typography>
+            </Box>
           )}
-        </Box>
-      </Drawer>
-    </Box>
+          
+          <Box sx={{ width: drawerWidth, px: 2 , py: 2}}>
+            <IconButton
+              color="inherit"
+              aria-label="dashboard"
+              onClick={handleDashboard}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                mb: 1,
+              }}
+            >
+              <HomeIcon sx={{ mr: 1 }} />
+              <Typography variant="body1"
+              sx={{
+                letterSpacing: "2px",
+              }}
+              >
+                Inicio
+              </Typography>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              aria-label="add player"
+              onClick={handleAddPlayer}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                mb: 1,
+              }}
+            >
+              <PersonAddAlt1RoundedIcon sx={{ mr: 1 }} />
+              <Typography 
+              variant="body1"
+              >
+                Agregar Jugadores
+              </Typography>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              aria-label="players"
+              onClick={handleGetPlayers}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                mb: 1,
+              }}
+            >
+              <Person2RoundedIcon sx={{ mr: 1 }} />
+              <Typography variant="body1">Lista de Jugadores</Typography>
+            </IconButton>
+            {role === roles.admin && (
+              <>
+
+                <IconButton
+                  color="inherit"
+                  aria-label="add team"
+                  onClick={handleAddTeam}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    mb: 1,
+                  }}
+                >
+                  <GroupAddIcon sx={{ mr: 1 }} />
+                  <Typography variant="body1">Agregar Equipos</Typography>
+                </IconButton>
+
+                <IconButton
+                  color="inherit"
+                  aria-label="teams"
+                  onClick={handleGetTeam}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    mb: 1,
+                  }}
+                >
+                  <GroupsIcon sx={{ mr: 1 }} />
+                  <Typography variant="body1">Lista de Equipos</Typography>
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="teams"
+                  onClick={handleAnnouncements}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    mb: 1,
+                  }}
+                >
+                  <Announcement sx={{ mr: 1 }} />
+                  <Typography variant="body1">Anuncios</Typography>
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="teams"
+                  onClick={handleMatches}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    mb: 1,
+                  }}
+                >
+                  <ScoreboardIcon sx={{ mr: 1 }} />
+                  <Typography variant="body1">Partidos</Typography>
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="teams"
+                  onClick={handleGetTeam}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    mb: 1,
+                  }}
+                >
+                  <EmojiEventsIcon sx={{ mr: 1 }} />
+                  <Typography variant="body1">Tabla de posiciones</Typography>
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="teams"
+                  onClick={handleCredentials}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    mb: 1,
+                  }}
+                >
+                  <ContactEmergencyIcon sx={{ mr: 1 }} />
+                  <Typography variant="body1">Credenciales</Typography>
+                </IconButton>
+              </>
+            )}
+          </Box>
+        </Drawer>
+      </Box>
+    </ThemeProvider>
   );
 }

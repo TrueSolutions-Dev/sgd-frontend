@@ -126,106 +126,114 @@ const AddTeam = () => {
             />
           </Box>
       ) :
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{height: "100dvh", overflowY: "hidden"}}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: isMobile ? 'auto' : '100vh',
-            p: isMobile ? 2 : 0,
+            height: '100%',
           }}
         >
           <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
+
           <Box
-            component="main"
-            sx={{ flexGrow: 1, p: 2, mt: 4, width: '100%', maxWidth: 600 }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            overflowY: "auto",
+          }}
           >
-            <h2 style={{ fontSize: isMobile ? '1.5rem' : '2rem' }}>
-              Agregar equipos
-            </h2>
-            <Box sx={{ mb: 2 }}>
-              <p style={{ fontSize: isMobile ? '0.875rem' : '1rem' }}>
-                El <b>nombre del equipo</b> y <b>contraseña</b> son los datos de
-                acceso para cada equipo.
-              </p>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <TextField
-                required
-                id="outlined-required"
-                label="Nombre del equipo"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                fullWidth={isMobile}
-              />
+            <Box
+              component="main"
+              sx={{ flexGrow: 1, p: 2, pt: 3, width: '100%', maxWidth: 600 }}
+            >
+              <h2 style={{ fontSize: isMobile ? '1.5rem' : '2rem' }}>
+                Agregar equipos
+              </h2>
+              <Box sx={{ mb: 2 }}>
+                <p style={{ fontSize: isMobile ? '0.875rem' : '1rem' }}>
+                  El <b>nombre del equipo</b> y <b>contraseña</b> son los datos de
+                  acceso para cada equipo.
+                </p>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <TextField
                   required
-                  id="outlined-password-input"
-                  label="Contraseña"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  id="outlined-required"
+                  label="Nombre del equipo"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   fullWidth={isMobile}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={handleClickShowPassword}
-                          aria-label="toggle password visibility"
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
                 />
-              {userRole === 'admin' && (
+                  <TextField
+                    required
+                    id="outlined-password-input"
+                    label="Contraseña"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    fullWidth={isMobile}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            aria-label="toggle password visibility"
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                {userRole === 'admin' && (
+                  <TextField
+                    required
+                    id="outlined-select-currency"
+                    select
+                    label="Fuerza"
+                    value={selectedForce}
+                    onChange={(e) => setSelectedForce(e.target.value)}
+                    fullWidth={isMobile}
+                  >
+                    {forces.map((force) => (
+                      <MenuItem key={force._id} value={force.name}>
+                        {force.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
                 <TextField
-                  required
-                  id="outlined-select-currency"
-                  select
-                  label="Fuerza"
-                  value={selectedForce}
-                  onChange={(e) => setSelectedForce(e.target.value)}
+                  id="outlined-required-owner"
+                  label="Dueño del equipo"
+                  value={owner}
+                  onChange={(e) => setOwner(e.target.value)}
                   fullWidth={isMobile}
+                />
+                <TextField
+                  id="outlined-required-representative"
+                  label="Representante del equipo"
+                  value={representative}
+                  onChange={(e) => setRepresentative(e.target.value)}
+                  fullWidth={isMobile}
+                />
+                <Button
+                  type="submit"
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: '#667652',
+                    '&:hover': {
+                      backgroundColor: '#5d6b4b',
+                    },
+                  }}
                 >
-                  {forces.map((force) => (
-                    <MenuItem key={force._id} value={force.name}>
-                      {force.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-              <TextField
-                id="outlined-required-owner"
-                label="Dueño del equipo"
-                value={owner}
-                onChange={(e) => setOwner(e.target.value)}
-                fullWidth={isMobile}
-              />
-              <TextField
-                id="outlined-required-representative"
-                label="Representante del equipo"
-                value={representative}
-                onChange={(e) => setRepresentative(e.target.value)}
-                fullWidth={isMobile}
-              />
-              <Button
-                type="submit"
-                fullWidth={isMobile}
-                variant="contained"
-                sx={{
-                  backgroundColor: '#667652',
-                  '&:hover': {
-                    backgroundColor: '#5d6b4b',
-                  },
-                }}
-              >
-                Agregar
-              </Button>
+                  Agregar
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Box>

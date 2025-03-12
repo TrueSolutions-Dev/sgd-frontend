@@ -18,9 +18,9 @@ const DashboardAdmin = () => {
       <Helmet>
         <title>{siteName} - Dashboard</title>
       </Helmet>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', flexDirection: "column", height: "100dvh", overflowY: "hidden" }}>
         <Sidebar role="admin" />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 4, textAlign: 'center' }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 4, textAlign: 'center', overflowY: "auto" }}>
           <img
             src={siteLogo || logoImage}
             alt="Logo de la Liga"

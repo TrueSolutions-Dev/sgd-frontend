@@ -72,7 +72,7 @@ const GetTeam = () => {
       } else {
         const filtered = teams.filter((team) => {
           if (filterBy === 'force') {
-            const forceName = forces.find((f) => f._id === team.forceId._id.toString())?.name;
+            const forceName = forces.find((f) => f._id === team.forceId._id)?.name;
             return forceName ? forceName.toLowerCase().includes(searchValue.toLowerCase()) : false;
           }
           const value = team[filterBy as keyof Team];
@@ -218,9 +218,9 @@ const GetTeam = () => {
       <Helmet>
         <title>La Liga Ixtlahuaca - Ver equipos</title>
       </Helmet>
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
+      <Box sx={{ display: 'flex', flexDirection: "column", height: "100dvh", overflowY: "hidden" }}>
         <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 3, overflowY: "auto" }}>
           <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
             Lista de equipos
           </Typography>

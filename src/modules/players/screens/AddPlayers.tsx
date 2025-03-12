@@ -12,7 +12,9 @@ import {
   Stepper,
   TextField,
   TextFieldProps,
-  Typography
+  Typography,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -56,6 +58,9 @@ const AddPlayers = () => {
 
   const user = useMemo(() => getDecodedToken(), []);
   const userRole = useMemo(() => getUserRole(), []);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const fetchTeamsAndForces = async () => {
@@ -382,164 +387,177 @@ const AddPlayers = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
+            height: '100dvh',
+            overflowY: "hidden"
           }}
         >
           <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
           <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              p: 2,
-              mt: 10,
-              width: '100%',
-              maxWidth: 600,
-              overflow: 'auto',
-            }}
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: isMobile ? "" : "center",
+            overflowY: "auto",
+            py: 2,
+          }}
           >
-            <Stepper activeStep={activeStep}>
-              {['Información del Jugador', 'Documentación'].map((label, index) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-              {activeStep === 0 && (
-                <Box sx={{ mt: 4 }}>
-                  <TextField
-                    required
-                    label="Nombre del jugador"
-                    value={name}
-                    onChange={handleNameChange}
-                    fullWidth
-                    sx={{ marginBottom: 2 }}
-                    error={!!error}
-                    helperText={error || 'Ingrese solo letras y espacios'}
-                  />
-                  <TextField
-                    required
-                    label="CURP del jugador"
-                    value={curpPlayer}
-                    onChange={(e) => setCurpPlayer(e.target.value)}
-                    fullWidth
-                    sx={{ marginBottom: 2 }}
-                    error={!!error}
-                  />
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <MobileDatePicker
-                      label="Fecha de nacimiento"
-                      value={birthDate}
-                      onChange={handleBirthDateChange}
-                      slotProps={{
-                        textField: {
-                          error: !!birthDateError,
-                          helperText: birthDateError,
-                          required: true,
-                        } as TextFieldProps,
-                      }}
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                px: 2,
+                py: 3,
+                width: '100%',
+                maxWidth: 600,
+                overflow: 'auto',
+                mx: "auto"
+              }}
+            >
+              <Stepper activeStep={activeStep}>
+                {['Información del Jugador', 'Documentación'].map((label, index) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+              <form onSubmit={handleSubmit} encType="multipart/form-data">
+                {activeStep === 0 && (
+                  <Box sx={{ mt: 4 }}>
+                    <TextField
+                      required
+                      label="Nombre del jugador"
+                      value={name}
+                      onChange={handleNameChange}
+                      fullWidth
+                      sx={{ marginBottom: 2 }}
+                      error={!!error}
+                      helperText={error || 'Ingrese solo letras y espacios'}
                     />
-                  </LocalizationProvider>
-                  <TextField
-                    required
-                    select
-                    label="Fuerza"
-                    disabled={userRole === 'team'}
-                    value={selectedForce ?? ''}
-                    onChange={(e) => setSelectedForce(e.target.value)}
-                    fullWidth
-                    sx={{ marginBottom: 2, marginTop: 2 }}
-                  >
-                    {forces.map((force) => (
-                      <MenuItem key={force._id} value={force._id}>
-                        {force.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    required
-                    select
-                    label="Equipo"
-                    disabled={userRole === 'team'}
-                    value={selectedTeam ?? ''}
-                    onChange={(e) => setSelectedTeam(e.target.value)}
-                    fullWidth
-                    sx={{ marginBottom: 2 }}
-                  >
-                    {teams.map((team) => (
-                      <MenuItem key={team._id} value={team._id}>
-                        {team.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    required
-                    type="number"
-                    label="Número del jugador"
-                    value={playerNumber}
-                    onChange={(e) => setplayerNumber(e.target.value)}
-                    fullWidth
-                    sx={{ marginBottom: 2 }}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        name="isYounger"
-                        checked={isYounger}
-                        onChange={handleCheckboxChange}
+                    <TextField
+                      required
+                      label="CURP del jugador"
+                      value={curpPlayer}
+                      onChange={(e) => setCurpPlayer(e.target.value)}
+                      fullWidth
+                      sx={{ marginBottom: 2 }}
+                      error={!!error}
+                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <MobileDatePicker
+                        label="Fecha de nacimiento"
+                        value={birthDate}
+                        onChange={handleBirthDateChange}
+                        slotProps={{
+                          textField: {
+                            error: !!birthDateError,
+                            helperText: birthDateError,
+                            required: true,
+                          } as TextFieldProps,
+                        }}
                       />
-                    }
-                    label="Juvenil"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        name="isForeigner"
-                        checked={isForeigner}
-                        onChange={handleCheckboxChange}
-                      />
-                    }
-                    label="Foráneo"
-                  />
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Button disabled={activeStep === 0} onClick={handleBack}>
-                      Atrás
-                    </Button>
-                    <Button variant="contained" onClick={handleNext}>
-                      Siguiente
-                    </Button>
+                    </LocalizationProvider>
+                    <TextField
+                      required
+                      select
+                      label="Fuerza"
+                      disabled={userRole === 'team'}
+                      value={selectedForce ?? ''}
+                      onChange={(e) => setSelectedForce(e.target.value)}
+                      fullWidth
+                      sx={{ marginBottom: 2, marginTop: 2 }}
+                    >
+                      {forces.map((force) => (
+                        <MenuItem key={force._id} value={force._id}>
+                          {force.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      required
+                      select
+                      label="Equipo"
+                      disabled={userRole === 'team'}
+                      value={selectedTeam ?? ''}
+                      onChange={(e) => setSelectedTeam(e.target.value)}
+                      fullWidth
+                      sx={{ marginBottom: 2 }}
+                    >
+                      {teams.map((team) => (
+                        <MenuItem key={team._id} value={team._id}>
+                          {team.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      required
+                      type="number"
+                      label="Número del jugador"
+                      value={playerNumber}
+                      onChange={(e) => setplayerNumber(e.target.value)}
+                      fullWidth
+                      sx={{ marginBottom: 2 }}
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="isYounger"
+                          checked={isYounger}
+                          onChange={handleCheckboxChange}
+                        />
+                      }
+                      label="Juvenil"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="isForeigner"
+                          checked={isForeigner}
+                          onChange={handleCheckboxChange}
+                        />
+                      }
+                      label="Foráneo"
+                    />
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Button disabled={activeStep === 0} onClick={handleBack}>
+                        Atrás
+                      </Button>
+                      <Button variant="contained" onClick={handleNext}>
+                        Siguiente
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
-              )}
+                )}
 
-              {activeStep === 1 && (
-                <Box sx={{ mt: 4 }}>
-                  {renderFileInput('Foto del jugador', 'photo', 'image/*')}
-                  {renderFileInput('INE', 'ine', 'image/*,application/pdf')}
-                  {renderFileInput('CURP', 'curp', 'image/*,application/pdf')}
-                  {renderFileInput(
-                    'Constancia de domicilio',
-                    'proofOfAddress',
-                    'image/*,application/pdf',
-                  )}
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      mt: 2,
-                    }}
-                  >
-                    <Button onClick={handleBack}>Atrás</Button>
-                    <Button variant="contained" color="primary" type="submit">
-                      Guardar
-                    </Button>
+                {activeStep === 1 && (
+                  <Box sx={{ mt: 4 }}>
+                    {renderFileInput('Foto del jugador', 'photo', 'image/*')}
+                    {renderFileInput('INE', 'ine', 'image/*,application/pdf')}
+                    {renderFileInput('CURP', 'curp', 'image/*,application/pdf')}
+                    {renderFileInput(
+                      'Constancia de domicilio',
+                      'proofOfAddress',
+                      'image/*,application/pdf',
+                    )}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mt: 2,
+                      }}
+                    >
+                      <Button onClick={handleBack}>Atrás</Button>
+                      <Button variant="contained" color="primary" type="submit">
+                        Guardar
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
-              )}
-            </form>
+                )}
+              </form>
+            </Box>
           </Box>
+          
         </Box>
       )}
 
