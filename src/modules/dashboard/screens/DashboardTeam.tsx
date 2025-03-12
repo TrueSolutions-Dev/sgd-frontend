@@ -18,7 +18,7 @@ const DashboardAdmin = () => {
       <Helmet>
         <title>La Liga Ixtlahuaca - Dashboard</title>
       </Helmet>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', flexDirection: "column" }}>
         <Sidebar role="team" />
         <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 4, textAlign: 'center' }}>
           <img

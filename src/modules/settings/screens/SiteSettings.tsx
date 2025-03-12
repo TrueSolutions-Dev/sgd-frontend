@@ -91,13 +91,16 @@ const SiteSettings = () => {
   };
 
   return (
-    <div>
+    <div style={{overflowY: "hidden", width: "100dvw", height: "100dvh"}}>
       <Helmet>
         <title>{siteName} - Configuración</title>
       </Helmet>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', flexDirection: "column", width: "100%", height: "100%" }}>
         <Sidebar role="admin" />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 4, textAlign: 'center' }}>
+        <Box 
+        component="main" 
+        sx={{ flexGrow: 1, p: 3, pt: 3, textAlign: 'center', overflowY: "auto"}}
+        >
           <img
             src={logoPreview || logoImage}
             alt="Logo de la Liga"
