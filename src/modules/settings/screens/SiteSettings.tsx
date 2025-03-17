@@ -8,6 +8,7 @@ import logoImage from '../../../assets/img/logo.png';
 import Sidebar from '../../dashboard/screens/SideBar';
 import { getSiteSettings } from '../service/getSettings.service';
 import { updateSiteSettings } from '../service/settings.service';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const SiteSettings = () => {
   const [maintenanceMode, setMaintenanceMode] = useState(false);
@@ -16,6 +17,11 @@ const SiteSettings = () => {
   const [newLogo, setNewLogo] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const themeFont = createTheme({
+      typography: {
+        fontFamily: "Inter, Arial, sans-serif",
+      },
+  });
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -95,6 +101,7 @@ const SiteSettings = () => {
       <Helmet>
         <title>{siteName} - Configuración</title>
       </Helmet>
+      <ThemeProvider theme={themeFont}>
       <Box sx={{ display: 'flex', flexDirection: "column", width: "100%", height: "100%" }}>
         <Sidebar role="admin" />
         <Box 
@@ -109,18 +116,18 @@ const SiteSettings = () => {
           <Typography
             variant="subtitle1"
             align="center"
-            sx={{ marginBottom: '40px' }}
+            sx={{ marginBottom: '40px', letterSpacing: "2px" }}
           >
             {siteName}
           </Typography>
-          <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: 'bold', mb: 3 }}>
+          <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: 'bold', mb: 3, letterSpacing: "2px" }}>
             Configuración del sitio
           </Typography>
 
           {/* Card para el nombre del sitio */}
           <Card sx={{ maxWidth: 600, margin: '0 auto', mb: 3 }}>
             <CardContent>
-              <Typography variant="h5" sx={{ mb: 2 }}>
+              <Typography variant="h5" sx={{ mb: 2, letterSpacing: "2px" }}>
                 Nombre del sitio
               </Typography>
               <TextField
@@ -135,20 +142,20 @@ const SiteSettings = () => {
 
           <Card sx={{ maxWidth: 600, margin: '0 auto', mb: 3 }}>
             <CardContent>
-              <Typography variant="h5" sx={{ mb: 2 }}>
+              <Typography variant="h5" sx={{ mb: 2, letterSpacing: "2px" }}>
                 Modo de mantenimiento
               </Typography>
               <FormControlLabel
                 control={
                   <Switch
-                    sx={{ color: '#667652' }}
+                    sx={{ color: '#667652', letterSpacing: "2px" }}
                     checked={maintenanceMode}
                     onChange={handleMaintenanceToggle}
                   />
                 }
                 label="Activar modo de mantenimiento"
               />
-              <Typography variant="body2" sx={{ mt: 2 }}>
+              <Typography variant="body2" sx={{ mt: 2, letterSpacing: "1px" }}>
                 {maintenanceMode
                   ? 'El sitio está en modo de mantenimiento. Los usuarios no podrán acceder.'
                   : 'El sitio está activo y disponible para los usuarios.'}
@@ -159,14 +166,14 @@ const SiteSettings = () => {
           {/* Card para cambiar el logo del sitio */}
           <Card sx={{ maxWidth: 600, margin: '0 auto', mb: 3 }}>
             <CardContent>
-              <Typography variant="h5" sx={{ mb: 2 }}>
+              <Typography variant="h5" sx={{ mb: 2, letterSpacing: "2px" }}>
                 Cambiar logo del sitio
               </Typography>
               <Button
                 variant="outlined"
                 component="label"
                 startIcon={<CloudUploadIcon />}
-                sx={{ justifyContent: 'start' }}
+                sx={{ justifyContent: 'start', letterSpacing: "1.2px" }}
               >
                 {newLogo ? newLogo.name : 'Subir nuevo logo'}
                 <input
@@ -207,13 +214,14 @@ const SiteSettings = () => {
           {/* Botón general para guardar cambios */}
           <Button
             variant="contained"
-            sx={{ mt: 3, backgroundColor: '#667652' }}
+            sx={{ mt: 3, backgroundColor: '#667652', letterSpacing: "1.5px" }}
             onClick={handleSaveChanges}
           >
             Guardar cambios
           </Button>
         </Box>
       </Box>
+      </ThemeProvider>
     </div>
   );
 };

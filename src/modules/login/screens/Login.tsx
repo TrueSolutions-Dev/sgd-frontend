@@ -22,6 +22,7 @@ import bgImage from '../../../assets/img/bg.jpeg';
 import logoImage from '../../../assets/img/logo.png';
 import lottieAnim from '../../../assets/lotties/ball-animation.json';
 import { loginUser } from '../service/auth.service';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./styleLogin.css"
 
 const Login = () => {
@@ -34,6 +35,11 @@ const Login = () => {
   const redirectUrl = new URLSearchParams(location.search).get('redirect') || '/dashboard';
   const [showPassword, setShowPassword] = useState(false);
   const { siteName, siteLogo } = useSiteSettings();
+  const themeFont = createTheme({
+      typography: {
+        fontFamily: "Inter, Arial, sans-serif",
+      },
+    });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -162,6 +168,7 @@ const Login = () => {
         />
       </Grid2>
 
+      <ThemeProvider theme={themeFont}>
       <Grid2
         display={'flex'}
         justifyContent={'center'}
@@ -288,6 +295,7 @@ const Login = () => {
           </form>
         </Container>
       </Grid2>
+      </ThemeProvider>
     </section>
   );
 };

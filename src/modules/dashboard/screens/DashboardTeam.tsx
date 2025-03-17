@@ -8,11 +8,16 @@ import { getDecodedToken } from '../../../utils/auth';
 import AnimatedText from '../components/AnimatedText';
 import Announcements from '../components/AnnouncementsDash';
 import Sidebar from './SideBar';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const DashboardAdmin = () => {
   const user = useMemo(() => getDecodedToken(), []);
   const { siteName, siteLogo } = useSiteSettings();
-
+  const themeFont = createTheme({
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+    },
+  });
   return (
     <div>
       <Helmet>
@@ -33,7 +38,9 @@ const DashboardAdmin = () => {
             >
               {siteName}
             </Typography>
+          <ThemeProvider theme={themeFont}>
           <Announcements/>
+          </ThemeProvider>
           <AnimatedText/>
         </Box>
       </Box>

@@ -31,6 +31,8 @@ import { Forces } from '../../../types/Forces';
 import { Team } from '../../../types/Team';
 import { getDecodedToken, getUserRole } from '../../../utils/auth';
 import Sidebar from '../../dashboard/screens/SideBar';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 
 const AddPlayers = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -61,6 +63,12 @@ const AddPlayers = () => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const themeFont = createTheme({
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+    },
+  });
 
   useEffect(() => {
     const fetchTeamsAndForces = async () => {
@@ -370,6 +378,7 @@ const AddPlayers = () => {
       <Helmet>
         <title>La Liga Ixtlahuaca - Agregar jugadores</title>
       </Helmet>
+      <ThemeProvider theme={themeFont}>
       {isLoading ? (
         <Box
           sx={{
@@ -560,6 +569,7 @@ const AddPlayers = () => {
           
         </Box>
       )}
+      </ThemeProvider>
 
       {previewImage && (
         <Dialog open={openPreview} onClose={handleClosePreview}>

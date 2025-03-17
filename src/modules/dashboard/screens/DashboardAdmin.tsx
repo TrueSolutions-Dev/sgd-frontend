@@ -8,10 +8,16 @@ import { useSiteSettings } from '../../settings/components/SiteSettingsProvider'
 import AnimatedText from '../components/AnimatedText';
 import Announcements from '../components/AnnouncementsDash';
 import Sidebar from './SideBar';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const DashboardAdmin = () => {
   const user = useMemo(() => getDecodedToken(), []);
   const { siteName, siteLogo } = useSiteSettings();
+  const themeFont = createTheme({
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+    },
+  });
   
   return (
     <div>
@@ -29,11 +35,13 @@ const DashboardAdmin = () => {
           <Typography
               variant={'subtitle1'}
               align="center"
-              sx={{marginBottom: '10px',}}
+              sx={{marginBottom: '10px', fontFamily: "Inter", letterSpacing: "2px"}}
             >
               {siteName}
             </Typography>
+          <ThemeProvider theme={themeFont}>
           <Announcements/>
+          </ThemeProvider>
           <AnimatedText/>
         </Box>
       </Box>

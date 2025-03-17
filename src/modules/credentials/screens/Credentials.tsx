@@ -27,6 +27,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 import Sidebar from "../../dashboard/screens/SideBar";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const baseUrl = import.meta.env.REACT_APP_BASE_URL || 'https://api.laliga-ixtlahuaca.com';
 
@@ -39,6 +40,11 @@ const Credentials = () => {
   const [selectedForce, setSelectedForce] = useState<string | null>(null);
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
   const [selectAll, setSelectAll] = useState(false);
+  const themeFont = createTheme({
+      typography: {
+        fontFamily: "Inter, Arial, sans-serif",
+      },
+    });
 
   const fetchTeams = useCallback(async () => {
     try {
@@ -124,6 +130,7 @@ const Credentials = () => {
       </Helmet>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Sidebar role="admin" />
+        <ThemeProvider theme={themeFont}>
         <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 3 }}>
           <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
             Generar credenciales
@@ -206,6 +213,7 @@ const Credentials = () => {
             </Box>
           )}
         </Box>
+        </ThemeProvider>
       </Box>
     </div>
   );
