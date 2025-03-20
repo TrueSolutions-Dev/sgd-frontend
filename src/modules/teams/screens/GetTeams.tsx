@@ -24,6 +24,7 @@ import { deleteTeam } from '../service/deleteTeam.service';
 import { getForces } from '../service/getForces.service';
 import { getData } from '../service/getTeams.service';
 import { updateTeamData } from '../service/updateTeam.service';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const GetTeam = () => {
   const [forces, setForces] = useState<Forces[]>([]);
@@ -40,6 +41,11 @@ const GetTeam = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(20);
   const [totalPages, setTotalPages] = useState(0);
+  const themeFont = createTheme({
+      typography: {
+        fontFamily: "Inter, Arial, sans-serif",
+      },
+    });
 
   const fetchTeams = useCallback(async () => {
     try {
@@ -220,6 +226,7 @@ const GetTeam = () => {
       </Helmet>
       <Box sx={{ display: 'flex', flexDirection: "column", height: "100dvh", overflowY: "hidden" }}>
         <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
+        <ThemeProvider theme={themeFont}>
         <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 3, overflowY: "auto" }}>
           <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
             Lista de equipos
@@ -335,7 +342,9 @@ const GetTeam = () => {
               color="standard" />
           </Box>
         </Box>
+        </ThemeProvider>
       </Box>
+      <ThemeProvider theme={themeFont}>
       <UpdateTeamModal
         open={open}
         handleClose={handleClose}
@@ -346,6 +355,7 @@ const GetTeam = () => {
         forces={forces}
         isLoading={isLoading}
       />
+      </ThemeProvider>
     </>
   );
 };

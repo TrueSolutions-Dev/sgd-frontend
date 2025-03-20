@@ -9,6 +9,8 @@ import { getDecodedToken, getUserRole } from '../../../utils/auth';
 import Sidebar from '../../dashboard/screens/SideBar';
 import { addData } from '../service/addTeam.service';
 import { getForces } from '../service/getForces.service';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 
 const AddTeam = () => {
   const [name, setName] = useState('');
@@ -21,6 +23,11 @@ const AddTeam = () => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const userRole = getUserRole();
   const userTeam = getDecodedToken()?.teamId;
+  const themeFont = createTheme({
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+    },
+  });
 
   useEffect(() => {
     const loadForces = async () => {
@@ -135,7 +142,7 @@ const AddTeam = () => {
           }}
         >
           <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
-
+          <ThemeProvider theme={themeFont}>
           <Box
           sx={{
             display: "flex",
@@ -149,11 +156,11 @@ const AddTeam = () => {
               component="main"
               sx={{ flexGrow: 1, p: 2, pt: 3, width: '100%', maxWidth: 600 }}
             >
-              <h2 style={{ fontSize: isMobile ? '1.5rem' : '2rem' }}>
+              <h2 style={{ fontSize: isMobile ? '1.5rem' : '2rem', letterSpacing: '2px' }}>
                 Agregar equipos
               </h2>
               <Box sx={{ mb: 2 }}>
-                <p style={{ fontSize: isMobile ? '0.875rem' : '1rem' }}>
+                <p style={{ fontSize: isMobile ? '0.875rem' : '1rem', letterSpacing: '1px' }}>
                   El <b>nombre del equipo</b> y <b>contraseña</b> son los datos de
                   acceso para cada equipo.
                 </p>
@@ -226,6 +233,7 @@ const AddTeam = () => {
                   variant="contained"
                   sx={{
                     backgroundColor: '#667652',
+                    letterSpacing: '2px',
                     '&:hover': {
                       backgroundColor: '#5d6b4b',
                     },
@@ -236,6 +244,7 @@ const AddTeam = () => {
               </Box>
             </Box>
           </Box>
+          </ThemeProvider>
         </Box>
       </form>
       }

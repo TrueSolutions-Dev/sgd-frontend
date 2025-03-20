@@ -23,7 +23,7 @@ const AnnouncementsDash = () => {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h5" component="h2" sx={{ mb: 1, fontWeight: "bold" }}>
+      <Typography variant="h5" component="h2" sx={{ mb: 1, fontWeight: "bold", letterSpacing: "1.5px" }}>
         Anuncios
       </Typography>
       {announcements.length > 0 ? (
@@ -77,7 +77,7 @@ const AnnouncementsDash = () => {
           </Card>
         ))
       ) : (
-        <Typography variant="body1" sx={{ color: "#777" }}>
+        <Typography variant="body1" sx={{ color: "#777", letterSpacing: "1.5px" }}>
           No hay anuncios disponibles.
         </Typography>
       )}

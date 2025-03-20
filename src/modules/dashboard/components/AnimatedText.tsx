@@ -15,6 +15,7 @@ const AnimatedText = () => {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           textShadow: '4px 4px 8px rgba(0,0,0,0.3)',
+          letterSpacing: '2px',
         }}
       >
         «El fútbol no es solo un juego, es pasión, es vida, es lo que te hace sentir vivo.»

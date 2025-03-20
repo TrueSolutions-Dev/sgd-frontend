@@ -25,6 +25,7 @@ import { getForces } from '../../teams/service/getForces.service';
 import { getData } from '../../teams/service/getTeams.service';
 import FilterComponent from '../components/FilterComponent';
 import { getPlayers } from '../service/getPlayers.service';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const baseUrl = import.meta.env.REACT_APP_BASE_URL || 'https://api.laliga-ixtlahuaca.com';
 
@@ -62,6 +63,12 @@ const GetPlayers = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(20);
   const [totalPages, setTotalPages] = useState(0);
+
+  const themeFont = createTheme({
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+    },
+  });
 
   const fetchData = useCallback(async () => {
     setIsDataReady(false);
@@ -327,7 +334,8 @@ const GetPlayers = () => {
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="website" />
       </Helmet>
-        <Box sx={{ display: 'flex', flexDirection: "column", height: "100%" }}>
+      <ThemeProvider theme={themeFont}>
+      <Box sx={{ display: 'flex', flexDirection: "column", height: "100%" }}>
         <Suspense fallback={<div>Cargando Sidebar...</div>}>
           <Sidebar role={userRole === 'team' ? 'team' : 'admin'} />
         </Suspense>
@@ -410,6 +418,8 @@ const GetPlayers = () => {
           </Box>
         </Box>
       </Box>
+      </ThemeProvider>
+      <ThemeProvider theme={themeFont}>
       <Suspense fallback={<div>Cargando Modal...</div>}>
         <UpdatePlayerModal
           open={open}
@@ -429,6 +439,7 @@ const GetPlayers = () => {
           isLoading={isLoading}
           userRole={userRole}/>
       </Suspense>
+      </ThemeProvider>
     </div>
   );
 };

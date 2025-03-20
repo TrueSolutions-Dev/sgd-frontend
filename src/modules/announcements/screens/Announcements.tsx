@@ -23,6 +23,7 @@ import { createAnnouncement } from "../service/addAnnouncement.service";
 import { deleteAnnouncement } from "../service/deleteAnnouncement.service";
 import { getAnnouncements } from "../service/getAnnouncement.service";
 import { updateAnnouncement } from "../service/updateAnnouncement.service"; // Importa el servicio de actualización
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const Announcements = () => {
   const { siteName } = useSiteSettings();
@@ -35,6 +36,11 @@ const Announcements = () => {
     content: "",
     image: null as File | null,
   });
+  const themeFont = createTheme({
+        typography: {
+          fontFamily: "Inter, Arial, sans-serif",
+        },
+    });
 
   useEffect(() => {
     fetchAnnouncements();
@@ -162,6 +168,7 @@ const Announcements = () => {
       <Helmet>
         <title>{siteName} - Anuncios</title>
       </Helmet>
+      <ThemeProvider theme={themeFont}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Sidebar role="admin" />
         <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 3 }}>
@@ -243,6 +250,8 @@ const Announcements = () => {
 
         </Box>
       </Box>
+      </ThemeProvider>
+      <ThemeProvider theme={themeFont}>
       <AnnouncementModal
         open={open}
         handleClose={handleClose}
@@ -251,6 +260,7 @@ const Announcements = () => {
         handleImageChange={handleImageChange}
         handleSaveAnnouncement={handleSaveAnnouncement}
       />
+      </ThemeProvider>
     </div>
   );
 };
