@@ -9,6 +9,7 @@ import ProtectedRoute from './modules/protectedroute/ProtectedRoute';
 import { useSiteSettings } from './modules/settings/components/SiteSettingsProvider';
 import MaintenanceScreen from './modules/settings/screens/MaintenanceScreen';
 import { getUserRole } from './utils/auth';
+import Home from './modules/home/screen/home';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/player/:id" element={<GetPlayerById />} />
         <Route

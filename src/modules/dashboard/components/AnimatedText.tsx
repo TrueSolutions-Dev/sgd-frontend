@@ -3,7 +3,7 @@ import { Typewriter } from 'react-simple-typewriter';
 
 const AnimatedText = () => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+    <div style={{ textAlign: 'center', marginTop: '20px' } }>
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
