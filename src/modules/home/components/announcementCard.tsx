@@ -1,0 +1,23 @@
+export default function AnnouncementCard() {
+    return(
+        <div className="w-[500px] relative">
+            <div className="bg-black-light-home rounded-t-2xl flex justify-between 
+                            items-center px-5 py-3">
+                <div className="flex items-center gap-3">
+                    <div className="text-white-home">|</div>
+                    <h2 className="text-white-home font-semibold">Nuevo anuncio</h2>
+                </div>
+                <span className="text-white-home text-sm">laliga@admin - 12/03/2025</span>
+            </div>
+            <div className="bg-dark-green-home rounded-b-2xl px-5 py-3">
+                <p className="text-white-home">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate eaque quam 
+                    debitis placeat vitae quia, ullam unde, porro, illum corporis deserunt 
+                    voluptatibus facere reprehenderit nostrum. Laboriosam facilis ipsa corrupti 
+                    cumque.
+                </p>
+            </div>
+            <img src="/football.png" alt="football image" className="absolute bottom-[-366px] w-[499px]"/>
+        </div>
+    )
+}
